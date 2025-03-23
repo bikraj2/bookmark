@@ -1,0 +1,6 @@
+media/*
+db.sqlite3
+cert.crt
+cert.key
+.env
+.DS_STORE

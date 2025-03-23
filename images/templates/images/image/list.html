@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Images bookmarked{% endblock %}
+
+{% block content %}
+<h1>Images bookmarked</h1>
+<div id="image-list">
+  {% include "images/image/list_images.html" %}
+</div>
+{% endblock %}
+
+{% block domready %}
+
+var page = 1;
+var emptyPage = false;
+var blockRequest = false;
+
+window.addEventListener('scroll', function() {
+if (emptyPage || blockRequest) return; // Stop if no more pages or request in progress
+
+var margin = document.documentElement.scrollHeight - window.innerHeight - 200;
+
+console.log(document.documentElement.scrollHeight,window.innerHeight,document.documentElement.scrollTop)
+if (document.documentElement.scrollTop >= margin) { // Use scrollY for better compatibility
+blockRequest = true;
+page += 1;
+console.log("Fetching page:", page);
+
+fetch('?images_only=1&page=' + page)
+.then(response => response.text())
+.then(html => {
+if (html.trim() === '') { // Ensure empty responses are correctly detected
+emptyPage = true;
+} else {
+document.getElementById('image-list').insertAdjacentHTML('beforeend', html);
+blockRequest = false;
+}
+})
+.catch(() => blockRequest = false); // Reset blockRequest if fetch fails
+}
+});
+
+// Trigger scroll event on page load to load initial images
+window.dispatchEvent(new Event('scroll'));
+{% endblock %}
