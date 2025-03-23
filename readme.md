@@ -2,7 +2,9 @@
 
 ## Overview
 This is a **Django-based Image Bookmarking Application** that allows users to **bookmark images from any website, like images, view image rankings (using Redis), follow users, and enjoy infinite scrolling**. The project includes **authentication (Django & Social Auth)** and is powered by **SQLite** as the database.
-
+![Bookmarking Images](./assets/first.png)
+![Bookmarked Images](./assets/second.png)
+![Bookmark details](./assets/third.png)
 ## Features
 - **User Authentication** (Django & Social Auth for Google Login)
 - **Bookmark Images** 
